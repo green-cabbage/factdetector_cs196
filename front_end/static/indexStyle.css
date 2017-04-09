@@ -1,0 +1,27 @@
+body {
+    background-image: url(RallyBackground.jpg);
+    background-size:  cover;
+    background-repeat:no-repeat;
+    height: 100%;
+    width: 100%;
+
+}
+
+h1 {
+	color: white;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 700%;
+	line-height: 70%;
+}
+
+div {
+    height: 200px;
+    width: 400px;
+    background: transparent;
+
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -200px;
+}
