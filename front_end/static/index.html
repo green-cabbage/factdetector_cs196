@@ -10,8 +10,12 @@
 		<div>
 			<center>
 			<h1>Fact <br>Detector</h1>
-				<button type="button" class="btn btn-primary btn-lg" onclick="askForFile()"> Click to Upload File </button> 
-				<input type="file" id="fileID" style="visibility: hidden; size: 50;" />
+			<form method=post enctype=multipart/form-data>
+		<p><input type=file name=file>
+			 <input type=submit value=Upload>
+	  </form>
+
+				<input type="file" id="fileID" name=file style="visibility: hidden; size: 50;" />
 
 			</center>
 		</div>
