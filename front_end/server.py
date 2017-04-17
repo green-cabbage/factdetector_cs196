@@ -4,7 +4,7 @@ from werkzeug.utils import secure_filename
 
 # Setup Flask app.
 app = Flask(__name__)
-UPLOAD_FOLDER = "./upload"
+UPLOAD_FOLDER = "../front_end/upload"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS= set(['txt','jpg', 'jpeg'])
 
