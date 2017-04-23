@@ -40,7 +40,10 @@ def upload_file():
         if file and allowed_file(file.filename):#triggered if the allowed file is uploaded
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_FOLDER, filename))
+
             #return redirect(url_for('uploaded_file',filename=filename))
+
+
 
         return app.send_static_file('index.html')
 

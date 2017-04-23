@@ -14,7 +14,10 @@ h1 {
 	line-height: 70%;
 }
 
-div {
+.infoText {
+    color: white;
+}
+.topDiv {
     height: 200px;
     width: 400px;
     background: transparent;
@@ -24,4 +27,27 @@ div {
     left: 50%;
     margin-top: -100px;
     margin-left: -200px;
+}
+
+.bottomDiv {
+    height: 300px;
+    width: 400px;
+    background: rgba(0,0,0,.40);
+    border-radius: 25px;
+
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -200px;
+
+}
+.infoText {
+
+    position: fixed;
+    top: 61%;
+    left: 51%;
+    margin-top: -100px;
+    margin-left: -200px;
+    margin-right: 470px;
 }
