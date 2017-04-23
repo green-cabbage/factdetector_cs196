@@ -6,19 +6,34 @@
 		<link rel="stylesheet" href="indexStyle.css" >
 	</head>
 	<body background="RallyBackground.jpg">
+		<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+			<div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" >Fact Detector</a>
+            </div>
+		</nav>
 
-		<div>
+		<div class="topDiv">
 			<center>
 			<h1>Fact <br>Detector</h1>
 			<form method=post enctype=multipart/form-data>
-		<p><input type=file name=file>
-			 <input type=submit value=Upload>
+		<p><input type=file multiple name=file>
+		<input type=submit value=Upload>
 	  </form>
-
-				<input type="file" id="fileID" name=file style="visibility: hidden; size: 50;" />
-
+				<input  type="file" id="fileID" name=file style="visibility: hidden; size: 50;" />
 			</center>
 		</div>
+
+		<div class="bottomDiv">
+			<div>
+			<br>
+			<p class = "infoText"> </p>
+			</div>
+		</div>
+		<script type=text/javascript src="{{url_for('static', filename='jquery.js') }}"></script>
 	</body>
 
 </html>
