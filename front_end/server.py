@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, redirect, url_for, send_from_directory
+from flask import Flask, request, redirect, url_for, send_from_directory,flash
 from werkzeug.utils import secure_filename
 
 # Setup Flask app.
@@ -35,13 +35,12 @@ def upload_file():
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
-            flash('No selected file')
+            flash('No selected file You idiot')
             return redirect(request.url)
-        if file and allowed_file(file.filename):
+        if file and allowed_file(file.filename):#triggered if the allowed file is uploaded
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_FOLDER, filename))
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
+            #return redirect(url_for('uploaded_file',filename=filename))
 
         return app.send_static_file('index.html')
 
