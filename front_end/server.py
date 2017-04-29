@@ -40,6 +40,12 @@ def upload_file():
         if file and allowed_file(file.filename):#triggered if the allowed file is uploaded
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_FOLDER, filename))
+            with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
+                data=myfile.read().replace("\n", "")
+
+            f = open( 'input.txt', 'w' )
+            f.write( data )
+            f.close()
 
             #return redirect(url_for('uploaded_file',filename=filename))
 
