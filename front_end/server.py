@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 UPLOAD_FOLDER = "../front_end/upload"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-ALLOWED_EXTENSIONS= set(['txt','jpg', 'jpeg'])
+ALLOWED_EXTENSIONS= set(['txt'])
 
 app.debug = True
 
@@ -32,6 +32,7 @@ def upload_file():
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
+        twofile = request.files['twofile']
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
@@ -39,13 +40,18 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):#triggered if the allowed file is uploaded
             filename = secure_filename(file.filename)
-            file.save(os.path.join(UPLOAD_FOLDER, filename))
             with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
                 data=myfile.read().replace("\n", "")
-
-            f = open( 'input.txt', 'w' )
-            f.write( data )
-            f.close()
+            print(data)
+            #file 2
+        if twofile.filename == '':
+            flash('No selected file You idiot')
+            return redirect(request.url)
+        if twofile and allowed_file(twofile.filename):#triggered if the allowed file is uploaded
+            filename = secure_filename(file.filename)
+            with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
+                twodata=myfile.read().replace("\n", "")
+            print(twodata)
 
             #return redirect(url_for('uploaded_file',filename=filename))
 
