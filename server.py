@@ -1,10 +1,10 @@
 import os
 from flask import Flask, request, redirect, url_for, send_from_directory,flash
 from werkzeug.utils import secure_filename
-
+#from Alchemy import *
 # Setup Flask app.
 app = Flask(__name__)
-UPLOAD_FOLDER = "../front_end/upload"
+UPLOAD_FOLDER = "./upload"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS= set(['txt'])
 
@@ -40,24 +40,37 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):#triggered if the allowed file is uploaded
             filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
                 data=myfile.read().replace("\n", "")
-            print(data)
+            filedata1= data.split('.')
+            #print(filedata1)
             #file 2
         if twofile.filename == '':
             flash('No selected file You idiot')
             return redirect(request.url)
         if twofile and allowed_file(twofile.filename):#triggered if the allowed file is uploaded
-            filename = secure_filename(file.filename)
+            filename = secure_filename(twofile.filename)
+            twofile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
                 twodata=myfile.read().replace("\n", "")
-            print(twodata)
+            filedata2= twodata.split('.')
+            #print(filedata2)
 
             #return redirect(url_for('uploaded_file',filename=filename))
+            filedata1=filedata1[0:min(len(filedata1),100)]
+            filedata2=filedata2[0:min(len(filedata2),100)]
+
+            bulkdata = filedata1 +filedata2
+            print(bulkdata)
+            #retData = flipFlopped(bulkdata)
+            #print(retData)
+            # first cut file lenghts down  the concat them
 
 
 
         return app.send_static_file('index.html')
+
 
 
 
