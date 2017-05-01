@@ -1,7 +1,14 @@
 import os
 from flask import Flask, request, redirect, url_for, send_from_directory,flash
 from werkzeug.utils import secure_filename
-#from Alchemy import *
+from Alchemy import *
+import json
+from watson_developer_cloud import AlchemyLanguageV1
+alchemy_language = AlchemyLanguageV1(api_key='cb738b85c0e2d0094894bcfe8c73d12d73543c35')
+
+from urllib.request import urlopen
+import re
+
 # Setup Flask app.
 app = Flask(__name__)
 UPLOAD_FOLDER = "./upload"
@@ -63,7 +70,7 @@ def upload_file():
 
             bulkdata = filedata1 +filedata2
             print(bulkdata)
-            #retData = flipFlopped(bulkdata)
+            retData=flipFlopped(bulkdata)
             #print(retData)
             # first cut file lenghts down  the concat them
 

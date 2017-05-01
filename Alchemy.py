@@ -61,7 +61,7 @@ def sentence_sentiment(text_input):
                 keyUse[i]=True
                 newKey=i
                 break
-        
+
         if (not found) :
             print("Credentials, over used for the day, SORRY!")
             return None
@@ -77,7 +77,7 @@ def listOfSentences (url,word):
     return re.findall(r"([^>=]*?word[^.<]*\.)",HTML)
 
 
-# In[7]:
+
 
 def compare_documents(array):
     prev = document_sentiment(array[0])
@@ -91,7 +91,6 @@ def compare_documents(array):
         return True
 
 
-# In[8]:
 
 def compare_sentences(array):
     prev = float(sentence_sentiment(array[0]))
@@ -105,13 +104,10 @@ def compare_sentences(array):
         return True
 
 
-# In[9]:
 
 def emotion_analysis(urlInput):
     return alchemy_language.emotion(url=urlInput)['docEmotions']
 
-
-# In[28]:
 
 def compare_similar_sentences(subsequence ):
     retArray=[]
@@ -121,7 +117,7 @@ def compare_similar_sentences(subsequence ):
     prev = float(sentence_sentiment(subsequence[0]))
     for i in range (1,len(subsequence)):
         temp = float(sentence_sentiment(subsequence[i]))
-        
+
         if temp*prev <= 0:
             #print("Flip Flopped")
             retArray[0].append(subsequence[i])
@@ -161,28 +157,30 @@ def mostSimilarTo(sentence, sentenceArray):
             notDumbWords += 1
             if word not in sentenceDict:
                 sentenceDict[word]=1
-            else:    
+            else:
                 sentenceDict[word] += 1
-               
-    
+
+
 
     for potentialSentence in sentenceArray:
         sameWords=0
         wordCount =0
         if potentialSentence != sentence:
-            
+
+
             for word in potentialSentence.split() :
                 word = word.lower()
                 if not dumbWord(word):
                     wordCount+=1
                     if word  in sentenceDict:
                         sameWords+=1
+            if(wordCount!=0):
+                if sameWords >=wordCount*SIMILARITY:
+                    similarSentences.append(potentialSentence)
 
-        print (sameWords)
-        print (wordCount)
-        if(wordCount!=0):
-            if sameWords >=wordCount*SIMILARITY:
-                similarSentences.append(potentialSentence)
+        '''print (sameWords)
+        print (wordCount)'''
+
 
     return similarSentences
 
@@ -192,27 +190,27 @@ def flipFlopped(sentenceArray):
     for sentence in sentenceArray:
         #print (sentence)
         if len(sentence.split()) >= MIN_WORDS :
-            
+
             retSentenceArray = mostSimilarTo(sentence, sentenceArray)
-            print ("The current sentence is: "+sentence+" and it is most similar to: ",end="")
-            print (retSentenceArray)
-            print (".")
+        return retArr
+        print ("The current sentence is: "+sentence+" and it is most similar to: ",end="")
+        print (retSentenceArray)
+        print (".")
             #if(  len(retSentenceArray) != 0):
-              
+
              #   retSentenceArray.insert(0, sentence)
                 #print(retSentenceArray)
              #   retStatus = compare_similar_sentences(retSentenceArray)
              #   retArr.append(sentence)
              #   retArr.append(retStatus)
-            
-    return retArr
 
 
-# In[29]:
 
+
+'''
 flipFlopped(['I hate war war is bad war is not good',
              'non no no yes hello hi there', 'These are not different and cool', 'these  are different and cool',
-             'I love war war is okay war is fun', 
+             'I love war war is okay war is fun',
              'War sounds good is good great war'])
 
 
@@ -222,11 +220,10 @@ flipFlopped(['The sky is blue today', 'the sky is green today'])
 
 flipFlopped( ['Her late, great husband, Antonin Scalia, will forever be a symbol of American justice','As promised, I directed the Department of Defense to develop a plan to demolish and destroy ISIS -- a network of lawless savages that have slaughtered Muslims and Christians, and men, and women, and children of all faiths and all beliefs','Finally, I have kept my promise to appoint a justice to the United States Supreme Court, from my list of 20 judges, who will defend our Constitution'])
 
+'''
 
 
 
-
-# In[27]:
 
 import re
 
@@ -237,44 +234,39 @@ def fileio( filename ):
 
     sentences = re.split(r' *[\.\?!][\'"\)\]]* *', text)
 
-    print (sentences)
+    #print (sentences)
     retArray = flipFlopped(sentences)
-    
-    print (retArray)
+
+    #print (retArray)
     for sentence in retArray:
+
         print ("Original sentence:", end=" ")
         print (sentence)
-        print ("List of Flipflops: ",end="") 
+        print ("List of Flipflops: ",end="")
         print (sentence[0])
-        print ("List of Consitent statements: ",end="") 
+        print ("List of Consitent statements: ",end="")
         print (sentence[1])
         print ('\n')
 
-    
-    
+
+
 
 
 def stdio( filename ):
     return
 
     # open the file
-    # put it into a list of setneces 
+    # put it into a list of setneces
 
     # retArray = flipFlopped(sentenceArray)
 
 
     # print retArray
 
-fileio("test2.txt")
+#fileio("test2.txt")
 
 
 # In[32]:
 
 import nltk
 import gensim
-
-
-# In[ ]:
-
-
-
