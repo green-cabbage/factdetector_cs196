@@ -9,7 +9,6 @@ keyList=['cb738b85c0e2d0094894bcfe8c73d12d73543c35','af89b7da-4bab-4bec-aad6-85e
 keyUse=[True,False,False,False,False]
 currentKey=0;
 maxKey=5
-
 alchemy_language = AlchemyLanguageV1(api_key=keyList[0])
 from urllib.request import urlopen
 import re
@@ -25,7 +24,6 @@ import scipy
 from random import sample
 import sys
 from nltk.corpus import stopwords
-
 
 
 # In[2]:
@@ -254,9 +252,3 @@ flipFlopped(['I hate war war is bad war is not good',
 
 
 
-import re
-
-
-
-import nltk
-import gensim
