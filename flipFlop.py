@@ -51,7 +51,7 @@ def avg_feature_vector(words, model, num_features):
         if word in cache:
             nwords = nwords+1
             featureVec = np.add(featureVec, cache[word])
-        else if word in index2word_set:
+        elif word in index2word_set:
             featureVec = np.add(featureVec, model[word])
             nwords = nwords+1
     if(nwords>0):
