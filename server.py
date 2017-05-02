@@ -16,7 +16,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS= set(['txt'])
 
 app.debug = True
-
+var0=0
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -32,8 +32,8 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
 
-@app.route('/', methods=[ 'GET','POST'])
-def upload_file():
+@app.route('/result', methods=[ 'GET','POST'])
+def uploaded_file():
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('No file part')
@@ -46,6 +46,7 @@ def upload_file():
             flash('No selected file You idiot')
             return redirect(request.url)
         if file and allowed_file(file.filename):#triggered if the allowed file is uploaded
+
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
@@ -69,9 +70,13 @@ def upload_file():
             filedata2=filedata2[0:min(len(filedata2),100)]
 
             bulkdata = filedata1 +filedata2
-            print(bulkdata)
+            #print(bulkdata)
             retData=flipFlopped(bulkdata)
             #print(retData)
+            #if not retData:
+            #    print("List is empty")
+            result =  {"mean" : 0.25, "mode":1}
+            return redirect("result.html",result = result)
             # first cut file lenghts down  the concat them
 
 

@@ -190,7 +190,6 @@ def flipFlopped(sentenceArray):
     for sentence in sentenceArray:
         #print (sentence)
         if len(sentence.split()) >= MIN_WORDS :
-
             retSentenceArray = mostSimilarTo(sentence, sentenceArray)
         return retArr
         print ("The current sentence is: "+sentence+" and it is most similar to: ",end="")
