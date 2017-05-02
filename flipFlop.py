@@ -14,7 +14,7 @@ from random import sample
 import sys
 from nltk.corpus import stopwords
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-SIMILARITY=.9
+SIMILARITY=.8
 meme=SentimentIntensityAnalyzer()
 num_features=300
 index2word_set=set(model1.index2word)
