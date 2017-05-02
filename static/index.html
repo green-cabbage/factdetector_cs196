@@ -32,15 +32,12 @@
 		<div class="bottomDiv">
 			<div>
 			<br>
+			<h1>Overview</h1>
+  	<p>Do you want to <a href="{{ url_for('login') }}">log in?</a>
 			<p class = "infoText"> </p>
-			<script>
-			var someJavaScriptVar = {{var0}};
-			</script>
-			<p>Hello World</p>
-			<button onclick="alert('Geocode: {{ hello }} ' + someJavaScriptVar)" />
 			</div>
 		</div>
-		<script type=text/javascript src="{{url_for('static', filename='jquery.js') }}"></script>
+
 	</body>
 
 </html>
