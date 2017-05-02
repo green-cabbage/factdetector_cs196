@@ -70,18 +70,17 @@ def upload_file():
             bulkdata = filedata1 +filedata2
             print(bulkdata)
             retData=flipFlopped(bulkdata)
+            #retData= [["ddfssdf",["32320"],["fdssd"]]]
             print(retData)
             result = {}
             for i in retData:
                 for j in range(len(i[1])):
-                    result[i[0]+"flipflop #"+str(j)]= i[1][j]
+                    result[i[0]+" flipflop #"+str(j)]= i[1][j]
                 for j in range(len(i[2])):
-                    result[i[0]+"consistent #"+str(j)]=i[2][j]
+                    result[i[0]+" consistent #"+str(j)]=i[2][j]
             return render_template("result.html",result = result)
             # first cut file lenghts down  the concat them
-
-
-
+    else:
         return app.send_static_file('index.html')
 
 
