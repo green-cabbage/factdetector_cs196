@@ -17,7 +17,6 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 SIMILARITY=.7
 meme=SentimentIntensityAnalyzer()
 num_features=300
-featureVec = np.zeros((num_features,), dtype="float32")
 index2word_set=set(model1.index2word)
 cache={}
 
@@ -45,6 +44,8 @@ def compare_similar_sentences(subsequence ):
 
 
 def avg_feature_vector(words, model, num_features):
+    featureVec = np.zeros((num_features,), dtype="float32")
+
 
 
     nwords=0
