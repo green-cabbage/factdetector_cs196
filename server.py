@@ -48,7 +48,7 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
-                data=(myfile.read().encode(encoding='UTF-8',errors='strict').replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
+                data=myfile.read().encode(encoding='UTF-8',errors='strict').replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
             filedata1= data.split('.')
             #print(filedata1)
             #file 2
