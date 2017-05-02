@@ -1,10 +1,11 @@
 from urllib.request import urlopen
 import re
 from gensim.models import word2vec
+from gensim import models
 from gensim.models.keyedvectors import KeyedVectors
-pathToBinVectors='/Users/Anmol/Desktop/CS196/factdetector_cs196/GoogleNews-vectors-negative300.bin'
+pathToBinVectors='./GoogleNews-vectors-negative300.bin'
 print ("Loading the data file... Please wait...")
-model1 =  KeyedVectors.load_word2vec_format(pathToBinVectors, binary=True) 
+model1=models.Word2Vec.load_word2vec_format(pathToBinVectors, binary=True)
 print ("Successfully loaded 3.6 G bin file!")
 import numpy as np
 import math
@@ -75,7 +76,7 @@ def flipFlopped(sentenceArray):
         if(  len(retSentenceArray) != 0):
             retSentenceArray.insert(0,sentence)
             retStatus = compare_similar_sentences(retSentenceArray)
-            retStatus.insert(0, sentence) 
+            retStatus.insert(0, sentence)
             retArr.append(retStatus)
     return retArr
 
@@ -99,5 +100,5 @@ flipFlopped(['I hate war war is bad war is not good',
              'non no no yes hello hi there', 'These are not different and cool', 'these  are different and cool',
              'I love war war is okay war is fun',
              'War sounds good is good great war'])
-# 
+#
 '''

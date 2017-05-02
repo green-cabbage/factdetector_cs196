@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, redirect, url_for, send_from_directory,flash, render_template
 from werkzeug.utils import secure_filename
-from flipflopDetector import *
+from flipFlop import *
 import json
 from watson_developer_cloud import AlchemyLanguageV1
 alchemy_language = AlchemyLanguageV1(api_key='cb738b85c0e2d0094894bcfe8c73d12d73543c35')
