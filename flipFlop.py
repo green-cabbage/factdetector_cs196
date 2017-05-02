@@ -18,7 +18,7 @@ SIMILARITY=.7
 meme=SentimentIntensityAnalyzer()
 num_features=300
 featureVec = np.zeros((num_features,), dtype="float32")
-index2word_set=set(model.index2word)
+index2word_set=set(model1.index2word)
 cache={}
 
 def sentence_sentiment(sentence):
