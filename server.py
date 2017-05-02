@@ -49,7 +49,7 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
                 data=myfile.read().replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
-            filedata1= data.split('.')
+            filedata1= str(data).split('.')
             #print(filedata1)
             #file 2
         if twofile.filename == '':
@@ -60,7 +60,7 @@ def upload_file():
             twofile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
                 twodata=myfile.read().replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
-            filedata2= twodata.split('.')
+            filedata2= str(twodata).split('.')
             #print(filedata2)
 
             #return redirect(url_for('uploaded_file',filename=filename))
