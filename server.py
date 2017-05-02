@@ -77,9 +77,9 @@ def upload_file():
             #result[str(filedata2[:10])]=filedata1
             for i in retData:
                 for j in range(len(i[1])):
-                    result[str(i[0])]= " <<<<<FLIPFLOPP>>>>>: "+i[1][j]
+                    result[i[0]]= " <<<<<FLIPFLOPP>>>>>: "+i[1][j]
                 for j in range(len(i[2])):
-                    result[str(i[0])]=" <<<<<CONSISTENT>>>>>: "+i[2][j]
+                    result[i[0]]=" <<<<<CONSISTENT>>>>>: "+i[2][j]
             return render_template("result.html",result = result)
             # first cut file lenghts down  the concat them
     else:
