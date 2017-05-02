@@ -1,7 +1,7 @@
 import os
-from flask import Flask, request, redirect, url_for, send_from_directory,flash
+from flask import Flask, request, redirect, url_for, send_from_directory,flash, render_template
 from werkzeug.utils import secure_filename
-from Alchemy import *
+#from flipper import *
 import json
 from watson_developer_cloud import AlchemyLanguageV1
 alchemy_language = AlchemyLanguageV1(api_key='cb738b85c0e2d0094894bcfe8c73d12d73543c35')
@@ -16,7 +16,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS= set(['txt'])
 
 app.debug = True
-var0=0
+
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -33,13 +33,12 @@ def uploaded_file(filename):
                                filename)
 
 @app.route('/', methods=[ 'GET','POST'])
-def uploaded_file():
+def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
-        result =  {"mean" : 0, "mode":0}
         twofile = request.files['twofile']
         # if user does not select file, browser also
         # submit a empty part without filename
@@ -47,7 +46,6 @@ def uploaded_file():
             flash('No selected file You idiot')
             return redirect(request.url)
         if file and allowed_file(file.filename):#triggered if the allowed file is uploaded
-
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
@@ -71,13 +69,11 @@ def uploaded_file():
             filedata2=filedata2[0:min(len(filedata2),100)]
 
             bulkdata = filedata1 +filedata2
-            #print(bulkdata)
-            retData=flipFlopped(bulkdata)
+            print(bulkdata)
+            #retData=flipFlopped(bulkdata)
+            result =  {"# of fllipflops" : 1212, "# of consistencies":12321}
+            return render_template("result.html",result = result)
             #print(retData)
-            #if not retData:
-            #    print("List is empty")
-            #result =  {"mean" : 0.25, "mode":1}
-
             # first cut file lenghts down  the concat them
 
 

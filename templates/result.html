@@ -3,14 +3,15 @@
    <body>
 
       <table border = 1>
-         {% for key, value in result.iteritems() %}
 
             <tr>
-               <th> {{ result['mean'] }} </th>
-               <td> {{ result['mode'] }} </td>
+               <th> {{ "# of fllipflops"  }} </th>
+               <td> {{ result["# of fllipflops"] }} </td>
+               <th> {{ "# of consistencies"}} </th>
+               <td> {{ result[ "# of consistencies"] }} </td>
             </tr>
 
-         {% endfor %}
+
       </table>
 
    </body>
