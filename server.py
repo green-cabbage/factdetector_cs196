@@ -48,7 +48,7 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
-                data=myfile.read().replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
+                data=str(myfile.read()).replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
             filedata1= str(data).split('.')
             #print(filedata1)
             #file 2
@@ -59,7 +59,7 @@ def upload_file():
             filename = secure_filename(twofile.filename)
             twofile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
-                twodata=myfile.read().replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
+                twodata=str(myfile.read()).replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
             filedata2= str(twodata).split('.')
             #print(filedata2)
 
