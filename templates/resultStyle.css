@@ -1,0 +1,53 @@
+body {
+    background-color: white;
+    background-size:  cover;
+    background-repeat:no-repeat;
+    height: 100%;
+    width: 100%;
+
+}
+
+h1 {
+	color: black;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 300%;
+	line-height: 70%;
+}
+
+.infoText {
+    color: white;
+}
+.topDiv {
+    height: 200px;
+    width: 400px;
+    background: transparent;
+
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -200px;
+}
+
+.bottomDiv {
+    height: 300px;
+    width: 400px;
+    background: rgba(0,0,0,.40);
+    border-radius: 25px;
+
+    position: fixed;
+    top: 63%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -200px;
+
+}
+.infoText {
+
+    position: fixed;
+    top: 61%;
+    left: 51%;
+    margin-top: -100px;
+    margin-left: -200px;
+    margin-right: 470px;
+}
