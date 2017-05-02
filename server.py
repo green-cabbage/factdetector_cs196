@@ -48,7 +48,7 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
-                data=str(myfile.read()).ecode(encoding='UTF-8',errors='strict').replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
+                data=myfile.read().replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
             filedata1= data.split('.')
             #print(filedata1)
             #file 2
@@ -59,7 +59,7 @@ def upload_file():
             filename = secure_filename(twofile.filename)
             twofile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
-                twodata=str(myfile.read()).encode(encoding='UTF-8',errors='strict').replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
+                twodata=myfile.read().replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
             filedata2= twodata.split('.')
             #print(filedata2)
 
@@ -73,6 +73,7 @@ def upload_file():
             #retData= [["ddfssdf",["32320"],["fdssd"]]]
             #print(retData)
             result = {}
+            #result[filedata1]=filedata2
             for i in retData:
                 for j in range(len(i[1])):
                     result[i[0]]= " <<<<<FLIPFLOPP>>>>>: "+i[1][j]
