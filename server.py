@@ -32,13 +32,14 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
 
-@app.route('/result', methods=[ 'GET','POST'])
+@app.route('/', methods=[ 'GET','POST'])
 def uploaded_file():
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
+        result =  {"mean" : 0, "mode":0}
         twofile = request.files['twofile']
         # if user does not select file, browser also
         # submit a empty part without filename
@@ -75,8 +76,8 @@ def uploaded_file():
             #print(retData)
             #if not retData:
             #    print("List is empty")
-            result =  {"mean" : 0.25, "mode":1}
-            return redirect("result.html",result = result)
+            #result =  {"mean" : 0.25, "mode":1}
+
             # first cut file lenghts down  the concat them
 
 
