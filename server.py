@@ -71,7 +71,12 @@ def upload_file():
             print(bulkdata)
             retData=flipFlopped(bulkdata)
             print(retData)
-            result =  {"# of fllipflops" : 1212, "# of consistencies":12321}
+            result = {}
+            for i in retData:
+                for j in range(len(i[1])):
+                    result[i[0]+"flipflop #"+j]= i[1][j]
+                for j in range(len(i[2])):
+                    result[i[0]+"consistent #"+j]=i[2][j]
             return render_template("result.html",result = result)
             # first cut file lenghts down  the concat them
 

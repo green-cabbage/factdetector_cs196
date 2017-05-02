@@ -44,27 +44,15 @@
 
       </center>
 
-          <table style="background-color:rgba(0,0,0,0.15)" border = 1>
-            {% for (int i=0; i<result.length;i++) %}
+      <table style="background-color:rgba(0,0,0,0.15)" border = 1>
+        {% for key, value in result.items() %}
 
-              <tr>
-                <th> {{ "sentence"  }} </th>
-                <td> {{ result[i][0] }} </td>
-                {% for (int j=0; j< result[i][1].length;j++) %}
-                  <th> {{ "fllipflops"  }} </th>
-                  <td> {{ result[i][1][j] }} </td>
-                  {% endfor %}
-                  {% for (int k=0; k< result[i][2].length ; k++) %}
-                  <th> {{ "consistencies"}} </th>
-                  <td> {{ result[i][2][k] }} </td>
-                {% endfor %}
+        <tr>
+           <th> {{ key }} </th>
+           <td> {{ value }} </td>
+        </tr>
 
-            </tr>
-            {% endfor %}
-
-
-
-
+     {% endfor %}
 
       </table>
 
