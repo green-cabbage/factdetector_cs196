@@ -45,18 +45,18 @@
       </center>
 
           <table style="background-color:rgba(0,0,0,0.15)" border = 1>
-            {% for i in result %}
+            {% for (int i=0; i<result.length;i++) %}
 
               <tr>
                 <th> {{ "sentence"  }} </th>
-                <td> {{ i[0] }} </td>
-                {% for j in range(len(i[1])) %}
+                <td> {{ result[i][0] }} </td>
+                {% for (int j=0; j< result[i][1].length;j++) %}
                   <th> {{ "fllipflops"  }} </th>
-                  <td> {{ i[1][j] }} </td>
+                  <td> {{ result[i][1][j] }} </td>
                   {% endfor %}
-                  {% for k in range(len(i[2])) %}
+                  {% for (int k=0; k< result[i][2].length ; k++) %}
                   <th> {{ "consistencies"}} </th>
-                  <td> {{ i[2][k] }} </td>
+                  <td> {{ result[i][2][k] }} </td>
                 {% endfor %}
 
             </tr>
