@@ -15,10 +15,10 @@ import sys
 from nltk.corpus import stopwords
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 SIMILARITY=.7
-
+meme=SentimentIntensityAnalyzer()
 
 def sentence_sentiment(sentence):
-    ss=SentimentIntensityAnalyzer().polarity_scores(sentence)
+    ss=meme.polarity_scores(sentence)
     return ss['compound']
 
 
