@@ -16,6 +16,7 @@ from nltk.corpus import stopwords
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 SIMILARITY=.7
 meme=SentimentIntensityAnalyzer()
+num_features=300
 featureVec = np.zeros((num_features,), dtype="float32")
 index2word_set=set(model.index2word)
 cache={}
