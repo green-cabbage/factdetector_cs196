@@ -3,7 +3,7 @@ from flask import Flask, request, redirect, url_for, send_from_directory,flash, 
 from werkzeug.utils import secure_filename
 from flipFlop import *
 import json
-
+import codecs
 
 
 from urllib.request import urlopen
@@ -48,8 +48,8 @@ def upload_file():
         if file and allowed_file(file.filename):#triggered if the allowed file is uploaded
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
-                data=str(myfile.read()).decode('cp1252').encode('utf-8').replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
+            with codecs.open(os.path.join(UPLOAD_FOLDER, filename), 'r',encoding='utf-8', errors='ignore') as myfile:
+                data=str(myfile.read()).replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
             filedata1= str(data).split('.')
             #print(filedata1)
             #file 2
@@ -59,8 +59,8 @@ def upload_file():
         if twofile and allowed_file(twofile.filename):#triggered if the allowed file is uploaded
             filename = secure_filename(twofile.filename)
             twofile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            with open(os.path.join(UPLOAD_FOLDER, filename), 'r') as myfile:
-                twodata=str(myfile.read()).decode('cp1252').encode('utf-8').replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
+            with codecs.open(os.path.join(UPLOAD_FOLDER, filename), 'r',encoding='utf-8', errors='ignore') as myfile:
+                twodata=str(myfile.read()).replace("\n", "").replace("/", "").replace(",", "").replace("(", "").replace(")", "").replace("-", "").replace("\"", "").replace("'", "")
             filedata2= str(twodata).split('.')
             #print(filedata2)
 
