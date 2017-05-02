@@ -16,6 +16,9 @@ from nltk.corpus import stopwords
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 SIMILARITY=.7
 meme=SentimentIntensityAnalyzer()
+featureVec = np.zeros((num_features,), dtype="float32")
+index2word_set=set(model.index2word)
+cache={}
 
 def sentence_sentiment(sentence):
     ss=meme.polarity_scores(sentence)
@@ -34,20 +37,23 @@ def compare_similar_sentences(subsequence ):
             #print("Flip Flopped")
             retArray[0].append(subsequence[i])
         else:
-            #print("Didn't Flop Flop")
+            #print("Didn't Flop Flop")re
             retArray[1].append(subsequence[i])
 
     return retArray
 
 
 def avg_feature_vector(words, model, num_features):
-    featureVec = np.zeros((num_features,), dtype="float32")
-    index2word_set=set(model.index2word)
+
+
     nwords=0
     for word in words:
-        if word in index2word_set:
+        if word in cache:
             nwords = nwords+1
+            featureVec = np.add(featureVec, cache[word])
+        else if word in index2word_set:
             featureVec = np.add(featureVec, model[word])
+            nwords = nwords+1
     if(nwords>0):
         featureVec = np.divide(featureVec, nwords)
     return featureVec
