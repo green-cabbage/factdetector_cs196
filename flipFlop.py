@@ -5,7 +5,7 @@ from gensim import models
 from gensim.models.keyedvectors import KeyedVectors
 pathToBinVectors='./GoogleNews-vectors-negative300.bin'
 print ("Loading the data file... Please wait...")
-model1=models.Word2Vec.load_word2vec_format(pathToBinVectors, binary=True)
+model1=KeyedVectors.load_word2vec_format(pathToBinVectors, binary=True)
 print ("Successfully loaded 3.6 G bin file!")
 import numpy as np
 import math
@@ -87,11 +87,11 @@ def flipFlopped(sentenceArray):
 # ,[sentence, flipFlopLIST, ConsistentLIST]
 # ]
 
-print ( flipFlopped(['The sky is blue today', 'the sky is green today']) )
-print(flipFlopped(['I hate war war is bad war is not good',
-             'non no no yes hello hi there', 'These are not different and cool', 'these  are different and cool',
-             'I love war war is okay war is fun',
-             'War sounds good is good great war']))
+# print ( flipFlopped(['The sky is blue today', 'the sky is green today']) )
+# print(flipFlopped(['I hate war war is bad war is not good',
+#              'non no no yes hello hi there', 'These are not different and cool', 'these  are different and cool',
+#              'I love war war is okay war is fun',
+#              'War sounds good is good great war']))
 # flipFlopped( ['Her late, great husband, Antonin Scalia, will forever be a symbol of American justice','As promised, I directed the Department of Defense to develop a plan to demolish and destroy ISIS -- a network of lawless savages that have slaughtered Muslims and Christians, and men, and women, and children of all faiths and all beliefs','Finally, I have kept my promise to appoint a justice to the United States Supreme Court, from my list of 20 judges, who will defend our Constitution'])
 
 
