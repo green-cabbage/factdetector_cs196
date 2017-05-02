@@ -68,16 +68,16 @@ def upload_file():
             filedata2=filedata2[0:min(len(filedata2),100)]
 
             bulkdata = filedata1 +filedata2
-            print(bulkdata)
+            #print(bulkdata)
             retData=flipFlopped(bulkdata)
             #retData= [["ddfssdf",["32320"],["fdssd"]]]
-            print(retData)
+            #print(retData)
             result = {}
             for i in retData:
                 for j in range(len(i[1])):
-                    result[i[0]+" flipflop #"+str(j)]= i[1][j]
+                    result[i[0]]= " <<<<<FLIPFLOPP>>>>>: "+i[1][j]
                 for j in range(len(i[2])):
-                    result[i[0]+" consistent #"+str(j)]=i[2][j]
+                    result[i[0]]=" <<<<<CONSISTENT>>>>>: "+i[2][j]
             return render_template("result.html",result = result)
             # first cut file lenghts down  the concat them
     else:
@@ -95,4 +95,4 @@ def static_proxy(path):
 
 
 if __name__ == '__main__':
-    app.run(host= "0.0.0.0", debug=True,use_reloader=False)
+    app.run(host= "0.0.0.0", debug=True,use_reloader=False, port=80)
