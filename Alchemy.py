@@ -13,6 +13,19 @@ maxKey=5
 alchemy_language = AlchemyLanguageV1(api_key=keyList[0])
 from urllib.request import urlopen
 import re
+from gensim.models import word2vec
+from gensim.models.keyedvectors import KeyedVectors
+pathToBinVectors='/Users/Anmol/Desktop/CS196/factdetector_cs196/Trying Out Word2Vec/GoogleNews-vectors-negative300.bin'
+print ("Loading the data file... Please wait...")
+model1 =  KeyedVectors.load_word2vec_format(pathToBinVectors, binary=True) 
+print ("Successfully loaded 3.6 G bin file!")
+import numpy as np
+import math
+import scipy
+from random import sample
+import sys
+from nltk.corpus import stopwords
+
 
 
 # In[2]:
@@ -53,22 +66,7 @@ def sentence_sentiment(text_input):
         else:
             return(alchemy_language.sentiment(text=text_input)['docSentiment']['score'])
     except:
-        found=False
-        newKey=-1
-        for i in range(currentKey,maxKey):
-            if(keyUse[i] == False):
-                found=True
-                keyUse[i]=True
-                newKey=i
-                break
-
-        if (not found) :
-            print("Credentials, over used for the day, SORRY!")
-            return None
-        else:
-            alchemy_language = AlchemyLanguageV1(api_key=keyList[newKey])
-            sentence_sentiment(text_input)
-
+        return None
 
 # In[6]:
 
@@ -115,8 +113,12 @@ def compare_similar_sentences(subsequence ):
     retArray.append([])
     #print (retArray)
     prev = float(sentence_sentiment(subsequence[0]))
+    if prev==None:
+        return None
     for i in range (1,len(subsequence)):
         temp = float(sentence_sentiment(subsequence[i]))
+        if temp==None:
+            return None
 
         if temp*prev <= 0:
             #print("Flip Flopped")
@@ -142,41 +144,54 @@ def dumbWord(word):
 
 THRESHOLD = 3
 MIN_WORDS = 3
-SIMILARITY = .5
+SIMILARITY = .7
 
+
+def avg_feature_vector(words, model, num_features):
+    featureVec = np.zeros((num_features,), dtype="float32")
+    index2word_set=set(model.index2word)
+    nwords=0
+    for word in words:
+        if word in index2word_set:
+            nwords = nwords+1
+            featureVec = np.add(featureVec, model[word])
+    if(nwords>0):
+        featureVec = np.divide(featureVec, nwords)
+    return featureVec
 
 
 def mostSimilarTo(sentence, sentenceArray):
     similarSentences = []
     sentenceDict = {}
     notDumbWords=0
-    for word in sentence.split():
-        #print (word)
-        word = word.lower()
-        if not dumbWord(word):
-            notDumbWords += 1
-            if word not in sentenceDict:
-                sentenceDict[word]=1
-            else:
-                sentenceDict[word] += 1
-
-
+    sentence_1_avg_vector = avg_feature_vector(sentence.split(), model1, num_features=300)
 
     for potentialSentence in sentenceArray:
-        sameWords=0
-        wordCount =0
         if potentialSentence != sentence:
+            # print(sentence.split())
+            # print(potentialSentence.split())
+            sentence_2_avg_vector = avg_feature_vector(potentialSentence.split(), model1, num_features=300)
+            sen1_sen2_similarity =  1 - scipy.spatial.distance.cosine(sentence_1_avg_vector,sentence_2_avg_vector)
+
+            # print(sen1_sen2_similarity)
+            if sen1_sen2_similarity>SIMILARITY:
+                similarSentences.append(potentialSentence)
 
 
-            for word in potentialSentence.split() :
-                word = word.lower()
-                if not dumbWord(word):
-                    wordCount+=1
-                    if word  in sentenceDict:
-                        sameWords+=1
-            if(wordCount!=0):
-                if sameWords >=wordCount*SIMILARITY:
-                    similarSentences.append(potentialSentence)
+        # sameWords=0
+        # wordCount =0
+        # if potentialSentence != sentence:
+
+
+        #     for word in potentialSentence.split() :
+        #         word = word.lower()
+        #         if not dumbWord(word):
+        #             wordCount+=1
+        #             if word  in sentenceDict:
+        #                 sameWords+=1
+        #     if(wordCount!=0):
+        #         if sameWords >=wordCount*SIMILARITY:
+        #             
 
         '''print (sameWords)
         print (wordCount)'''
@@ -189,22 +204,37 @@ def flipFlopped(sentenceArray):
     retArr=[]
     for sentence in sentenceArray:
         #print (sentence)
-        if len(sentence.split()) >= MIN_WORDS :
+        retSentenceArray = mostSimilarTo(sentence, sentenceArray)
+        
+        # print ("The current sentence is: "+sentence+" and it is most similar to: ",end="")
+        # print (retSentenceArray)
+        # print (".")
+        if(  len(retSentenceArray) != 0):
 
-            retSentenceArray = mostSimilarTo(sentence, sentenceArray)
-        return retArr
-        print ("The current sentence is: "+sentence+" and it is most similar to: ",end="")
-        print (retSentenceArray)
-        print (".")
-            #if(  len(retSentenceArray) != 0):
+            retSentenceArray.insert(0, sentence)
+            # print(retSentenceArray)
+            retStatus = compare_similar_sentences(retSentenceArray)
+            retStatus.insert(0, sentence) 
+            if retStatus==None:
+                return None
 
-             #   retSentenceArray.insert(0, sentence)
-                #print(retSentenceArray)
-             #   retStatus = compare_similar_sentences(retSentenceArray)
-             #   retArr.append(sentence)
-             #   retArr.append(retStatus)
+            # retArr.append(sentence)
+            retArr.append(retStatus)
+    return retArr
 
 
+
+# [
+# [ sentence, flipFlopLIST[], ConsistentLIST[] ]
+# ,[sentence, flipFlopLIST, ConsistentLIST]
+# ]
+
+print ( flipFlopped(['The sky is blue today', 'the sky is green today']) )
+print(flipFlopped(['I hate war war is bad war is not good',
+             'non no no yes hello hi there', 'These are not different and cool', 'these  are different and cool',
+             'I love war war is okay war is fun',
+             'War sounds good is good great war']))
+# flipFlopped( ['Her late, great husband, Antonin Scalia, will forever be a symbol of American justice','As promised, I directed the Department of Defense to develop a plan to demolish and destroy ISIS -- a network of lawless savages that have slaughtered Muslims and Christians, and men, and women, and children of all faiths and all beliefs','Finally, I have kept my promise to appoint a justice to the United States Supreme Court, from my list of 20 judges, who will defend our Constitution'])
 
 
 '''
@@ -214,11 +244,10 @@ flipFlopped(['I hate war war is bad war is not good',
              'War sounds good is good great war'])
 
 
-flipFlopped(['The sky is blue today', 'the sky is green today'])
+# 
 
 
 
-flipFlopped( ['Her late, great husband, Antonin Scalia, will forever be a symbol of American justice','As promised, I directed the Department of Defense to develop a plan to demolish and destroy ISIS -- a network of lawless savages that have slaughtered Muslims and Christians, and men, and women, and children of all faiths and all beliefs','Finally, I have kept my promise to appoint a justice to the United States Supreme Court, from my list of 20 judges, who will defend our Constitution'])
 
 '''
 
@@ -227,46 +256,7 @@ flipFlopped( ['Her late, great husband, Antonin Scalia, will forever be a symbol
 
 import re
 
-def fileio( filename ):
-    text= None
-    with open(filename) as file:
-        text=file.read()
 
-    sentences = re.split(r' *[\.\?!][\'"\)\]]* *', text)
-
-    #print (sentences)
-    retArray = flipFlopped(sentences)
-
-    #print (retArray)
-    for sentence in retArray:
-
-        print ("Original sentence:", end=" ")
-        print (sentence)
-        print ("List of Flipflops: ",end="")
-        print (sentence[0])
-        print ("List of Consitent statements: ",end="")
-        print (sentence[1])
-        print ('\n')
-
-
-
-
-
-def stdio( filename ):
-    return
-
-    # open the file
-    # put it into a list of setneces
-
-    # retArray = flipFlopped(sentenceArray)
-
-
-    # print retArray
-
-#fileio("test2.txt")
-
-
-# In[32]:
 
 import nltk
 import gensim
