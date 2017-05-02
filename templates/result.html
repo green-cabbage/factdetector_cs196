@@ -1,18 +1,77 @@
-<!doctype html>
-<html>
-   <body>
+<!DOCTYPE html>
 
-      <table border = 1>
+<html>
+
+   <head>
+
+      <script type="text/javascript" src="../static/indexScript.js"></script>
+
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+      <link rel="stylesheet" href="../static/indexStyle.css" >
+
+   </head>
+
+   <body background="../static/RallyBackground.jpg">
+
+      <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+
+         <div class="container">
+
+            <div class="navbar-header page-scroll">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+
+                </button>
+
+                <a href="../static/index.html" class="navbar-brand" >Fact Detector</a>
+
+            </div>
+
+      </nav>
+
+
+
+      <div class="topDiv2">
+
+      <center>
+
+         <h2> Results </h2>
+
+         <br>
+
+      </center>
+
+          <table style="background-color:rgba(0,0,0,0.15)" border = 1>
+
+
 
             <tr>
+
                <th> {{ "# of fllipflops"  }} </th>
+
                <td> {{ result["# of fllipflops"] }} </td>
+
                <th> {{ "# of consistencies"}} </th>
+
                <td> {{ result[ "# of consistencies"] }} </td>
+
             </tr>
+
+
+
 
 
       </table>
 
+      </div>
+
+
+
    </body>
+
+
+
 </html>
