@@ -45,20 +45,22 @@
       </center>
 
           <table style="background-color:rgba(0,0,0,0.15)" border = 1>
+            {% for i in result %}
 
-
-
-            <tr>
-
-               <th> {{ "# of fllipflops"  }} </th>
-
-               <td> {{ result["# of fllipflops"] }} </td>
-
-               <th> {{ "# of consistencies"}} </th>
-
-               <td> {{ result[ "# of consistencies"] }} </td>
+              <tr>
+                <th> {{ "sentence"  }} </th>
+                <td> {{ i[0] }} </td>
+                {% for j in range(len(i[1])) %}
+                  <th> {{ "fllipflops"  }} </th>
+                  <td> {{ i[1][j] }} </td>
+                  {% endfor %}
+                  {% for k in range(len(i[2])) %}
+                  <th> {{ "consistencies"}} </th>
+                  <td> {{ i[2][k] }} </td>
+                {% endfor %}
 
             </tr>
+            {% endfor %}
 
 
 
