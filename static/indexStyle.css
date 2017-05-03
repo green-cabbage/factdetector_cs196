@@ -18,30 +18,26 @@ h1 {
     color: white;
 }
 .topDiv {
-    height: 200px;
-    width: 400px;
-    background: transparent;
+    height: 50%;
+    width: 40%;
+background: rgba(0,0,0,.40);
+    border-radius: 25px;
 
     position: fixed;
     top: 25%;
     left: 50%;
     margin-top: -100px;
-    margin-left: -200px;
+    margin-left: -260px;
 }
 
-.bottomDiv {
-    height: 300px;
-    width: 400px;
-    background: rgba(0,0,0,.40);
-    border-radius: 25px;
-
-    position: fixed;
-    top: 63%;
-    left: 50%;
-    margin-top: -100px;
-    margin-left: -200px;
-
+.nav > a:hover, .nav > a:focus{
+    background-color: red;
+    text-decoration: none;
 }
+
+
+
+
 .infoText {
 
     position: fixed;

@@ -1,5 +1,5 @@
 body {
-    background-color: white;
+    background-color: grey;
     background-size:  cover;
     background-repeat:no-repeat;
     height: 100%;
@@ -23,7 +23,7 @@ h1 {
     background: transparent;
 
     position: fixed;
-    top: 25%;
+    top: 30%;
     left: 50%;
     margin-top: -100px;
     margin-left: -200px;
@@ -41,13 +41,4 @@ h1 {
     margin-top: -100px;
     margin-left: -200px;
 
-}
-.infoText {
-
-    position: fixed;
-    top: 61%;
-    left: 51%;
-    margin-top: -100px;
-    margin-left: -200px;
-    margin-right: 470px;
 }

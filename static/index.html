@@ -25,9 +25,9 @@
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
 
                 </button>
-
+                <li style="list-style-type:none">
                 <a href="index.html" class="navbar-brand" >Fact Detector</a>
-
+                </li>
             </div>
 
 		</nav>
@@ -35,27 +35,43 @@
 
 
 		<div class="topDiv">
+			<div class= "innerDiv">
 
-			<center>
+				<center>
 
-			<h1>Fact <br>Detector</h1>
+				<h1>Fact <br>Detector</h1>
+				<br>
 
-			<form method=post enctype=multipart/form-data>
+				<form method=post enctype=multipart/form-data>
+				<div>
 
-		<p><input type=file name=file>
 
-		<input type=file name=twofile>
+				<label style="display:inline-block;float:center;" class="btn btn-primary btn-file btn-lg">
+    				Select First Text File<input style="display:none;" type=file name=file>
+				</label>
 
-		<input type=submit value="Upload Both Files">
+				<label style="display:inline-block;clear: both;" class="btn btn-primary btn-file btn-lg">
+    				Select Second Text File <input style= "display:none" type=file name=twofile>
+				</label>
 
-	  </form>
+				
+				
 
-				<input  type="file" id="fileID" name=file style="visibility: hidden; size: 50;" />
+	  			</div>
 
+	  			<br>
+	  			<label style="float:center;" class="btn btn-success btn-file btn-lg">
+    				Submit Both Files<input style= "display:none" type=submit value="Upload Both Files">
+				</label>
+				</form>
+				
+	  			<input  type="file" id="fileID" name=file style="visibility: hidden; size: 50;" />
 				<input  type="file" id="fileID" name=twofile style="visibility: hidden; size: 50;" />
 
-			</center>
+					
 
+				</center>
+			</div>
 		</div>
 
 
