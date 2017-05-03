@@ -1,3 +1,10 @@
+import json
+from watson_developer_cloud import AlchemyLanguageV1
+keyList=['cb738b85c0e2d0094894bcfe8c73d12d73543c35','af89b7da-4bab-4bec-aad6-85eaff5e2b90','b4632297-1c70-4de2-821b-95d2c3245d01','49662623-dd08-4f6e-871b-af1dec4cdaa1','a249944a-48e3-44cc-b481-248f7fa1e2d7']
+keyUse=[True,False,False,False,False]
+currentKey=0;
+maxKey=5
+alchemy_language = AlchemyLanguageV1(api_key=keyList[0])
 from urllib.request import urlopen
 import re
 from gensim.models import word2vec
@@ -18,11 +25,54 @@ SIMILARITY=.8
 meme=SentimentIntensityAnalyzer()
 num_features=300
 index2word_set=set(model1.index2word)
-cache={}
 
-def sentence_sentiment(sentence):
-    ss=meme.polarity_scores(sentence)
-    return ss['compound']
+# In[2]:
+
+def targeted_document_analysis(url_input, target_words):
+    if (alchemy_language.targeted_sentiment(url=url_input, targets=target_words)["results"][0]['sentiment']['type'])=='neutral':
+        return 0.0
+    else:
+        return (alchemy_language.targeted_sentiment(url=url_input, targets=target_words)["results"][0]['sentiment']['score'])
+    pass
+
+
+# In[3]:
+
+def document_sentiment(url_input):
+    if (alchemy_language.sentiment(url=url_input)['docSentiment']['score'])=='neutral':
+        return 0.0
+    else:
+        return(alchemy_language.sentiment(url=url_input)['docSentiment']['score'])
+
+
+# In[4]:
+
+def targeted_sentence_analysis(text_input, target_words):
+    if (alchemy_language.targeted_sentiment(text=text_input, targets=target_words) ["results"][0]['sentiment']['type'])=='neutral':
+        return 0.0
+    else:
+        return(alchemy_language.targeted_sentiment(text=text_input, targets=target_words) ["results"][0]['sentiment']['score'])
+    pass
+
+
+# In[5]:
+
+def sentence_sentiment(text_input):
+    try:
+        if (alchemy_language.sentiment(text=text_input)['docSentiment']['type'])=='neutral':
+            return 0.0
+        else:
+            return(alchemy_language.sentiment(text=text_input)['docSentiment']['score'])
+    except:
+        return None
+
+# In[6]:
+
+def listOfSentences (url,word):
+    HTMl = urllib.request.urlopen(url).read()
+    return re.findall(r"([^>=]*?word[^.<]*\.)",HTML)
+
+
 
 
 def compare_similar_sentences(subsequence ):
@@ -50,11 +100,7 @@ def avg_feature_vector(words, model, num_features):
 
     nwords=0
     for word in words:
-        if word in cache:
-            nwords = nwords+1
-            featureVec = np.add(featureVec, cache[word])
-        elif word in index2word_set:
-            cache[word] = model[word]
+        if word in index2word_set:
             featureVec = np.add(featureVec, model[word])
             nwords = nwords+1
     if(nwords>0):
@@ -96,18 +142,3 @@ def flipFlopped(sentenceArray):
 # ,[sentence, flipFlopLIST, ConsistentLIST]
 # ]
 
-# print ( flipFlopped(['The sky is blue today', 'the sky is green today']) )
-# print(flipFlopped(['I hate war war is bad war is not good',
-#              'non no no yes hello hi there', 'These are not different and cool', 'these  are different and cool',
-#              'I love war war is okay war is fun',
-#              'War sounds good is good great war']))
-# flipFlopped( ['Her late, great husband, Antonin Scalia, will forever be a symbol of American justice','As promised, I directed the Department of Defense to develop a plan to demolish and destroy ISIS -- a network of lawless savages that have slaughtered Muslims and Christians, and men, and women, and children of all faiths and all beliefs','Finally, I have kept my promise to appoint a justice to the United States Supreme Court, from my list of 20 judges, who will defend our Constitution'])
-
-
-'''
-flipFlopped(['I hate war war is bad war is not good',
-             'non no no yes hello hi there', 'These are not different and cool', 'these  are different and cool',
-             'I love war war is okay war is fun',
-             'War sounds good is good great war'])
-#
-'''
